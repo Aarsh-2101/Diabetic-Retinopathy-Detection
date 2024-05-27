@@ -1,89 +1,95 @@
-<!DOCTYPE html>
+import pdfkit
+import os
+
+def generate_report(date=None, prediction=None, description=None, uploaded_image=None, importance_image=None):
+    html_template = """
+    <!DOCTYPE html>
     <html lang="en">
     <head>
         <style>
-            @page {
+            @page {{
                 size: A4;
                 margin: 1cm;
-            }
-            body {
+            }}
+            body {{
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
-            }
-            .container {
+            }}
+            .container {{
                 background: white;
                 padding: 20px;
                 text-align: center;
-            }
-            .status {
+            }}
+            .status {{
                 font-size: 24px;
                 margin: 10px 0;
-            }
-            .exam-info {
+            }}
+            .exam-info {{
                 font-size: 20px;
                 margin: 20px 0;
-            }
-            .eye-results {
+            }}
+            .eye-results {{
                 text-align: center;
                 margin: 20px 0;
-            }
-            .eye-results div {
+            }}
+            .eye-results div {{
                 display: inline-block;
                 margin: 0 10px;
                 text-align: center;
                 width: 45%;
-            }
-            .eye-results img {
+            }}
+            .eye-results img {{
                 border-radius: 10px;
-            }
-            .main-title {
-                font-size: 24px;
+            }}
+            .main-title {{
+                font-size: 22px;
                 margin: 20px 0;
                 width: 65%; 
                 display: inline-block;
-            }
-            .date {
+            }}
+            .date {{
                 width: 25%; 
                 display: inline-block;
                 text-align: right;
-            }
-            .prediction {
+            }}
+            .prediction {{
                 font-size: 32px;
                 margin: 10px 0;
                 color: #00ff33;
-            }
-            .description {
+            }}
+            .description {{
                 font-size: 18px;
                 margin: 20px 0;
                 text-align: justify;
-            }
-            .exam-info {
+            }}
+            .exam-info {{
                 overflow: auto; /* To clear the float */
-            }
-            .exam-info div {
+            }}
+        
+            .exam-info div {{
                 width: 50%;
                 float: left;
-            }
-            .uploaded-img, .importance-img{
+            }}
+            .uploaded-img, .importance-img{{
                 width: 300px;
                 height: 300px;
-            }
-            .disclaimer {
+            }}
+            .disclaimer {{
                 text-align: left;
                 font-size: 12px;
-            }
+            }}
         </style>
     </head>
     <body>
         <div class="container">
             <div class="title-date">
                 <h1 class="main-title">Summary of Diabetic Retinopathy (DR) Exam Result</h1>
-                <p class="date">09-24-2024</p>
+                <p class="date">Date:{}</p>
             </div>
             <p class="status">Detected Severity of Diabetic Retinopathy:</p>
-            <p class="prediction">Moderate Diabetic Retinopathy</p>
-            <p class="description">The retina shows no signs of diabetic retinopathy. This indicates healthy retinal vessels without any damage due to diabetes. Regular monitoring is recommended to maintain eye health.</p>
+            <p class="prediction">{}</p>
+            <p class="description">{}</p>
             <div class="exam-info">
                 <div>Repeat exam in: <strong>12 Months</strong></div>
                 <div>Referral to Ophthalmologist: <strong>Required</strong></div>
@@ -91,7 +97,7 @@
             <div class="eye-results">
                 <div>
                     <p>Uploaded Fundus Image</p>
-                    <img class="uploaded-img" src="0ceb222f6629.png" alt="">
+                    <img class="uploaded-img" src="data:image/png;base64,{}" alt="">
                 </div>
                 <div>
                     <p>Importance Image</p>
@@ -104,3 +110,7 @@
         </div>
     </body>
     </html>
+    """
+    html = html_template.format(date, prediction, description, uploaded_image, importance_image)
+    report = pdfkit.from_string(html, False)
+    return report
