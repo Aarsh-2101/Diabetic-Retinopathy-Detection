@@ -17,6 +17,15 @@
                 padding: 20px;
                 text-align: center;
             }
+            .logo {
+                display: inline-block;
+                width: 90px;
+                position: relative;
+                top: 15px;
+            }
+            .logo img {
+                width: 100%;
+            }
             .status {
                 font-size: 24px;
                 margin: 10px 0;
@@ -41,13 +50,17 @@
             .main-title {
                 font-size: 24px;
                 margin: 20px 0;
-                width: 65%; 
+                width: 60%; 
                 display: inline-block;
+                position: relative;
+                top: -20px;
             }
             .date {
-                width: 25%; 
+                width: 20%; 
                 display: inline-block;
                 text-align: right;
+                position: relative;
+                top: -20px;
             }
             .prediction {
                 font-size: 40px;
@@ -112,6 +125,9 @@
     <body>
         <div class="container">
             <div class="title-date">
+                <div class="logo">
+                    <img src="/Users/aarshpatel/Downloads/Blindness Detection/website/blindness_detection/eye_main_banner.jpeg" alt="">
+                </div>
                 <h1 class="main-title">Summary of Diabetic Retinopathy (DR) Exam Result</h1>
                 <p class="date">09-24-2024</p>
             </div>
